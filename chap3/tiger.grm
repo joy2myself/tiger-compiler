@@ -1,4 +1,12 @@
 %{
+
+/*
+Author:         ZhangYin, zhangyin2018@iscas.ac.cn
+Version:        1.0.2
+Date:           May 28, 2019
+Description:    Tiger compiler chap3, Parser of TIGER in Yacc
+ */
+
 #include <stdio.h>
 #include "util.h"
 #include "errormsg.h"
@@ -13,10 +21,10 @@ void yyerror(char *s)
 
 
 %union {
-	int pos;
-	int ival;
-	string sval;
-	}
+  int pos;
+  int ival;
+  string sval;
+  }
 
 %token <sval> ID STRING
 %token <ival> INT
@@ -32,12 +40,123 @@ void yyerror(char *s)
 
 %start program
 
+%nonassoc DO OF
+%nonassoc THEN
+%nonassoc ELSE
+%right SEMICOLON
+%right ASSIGN
+%left OR
+%left AND
+%nonassoc EQ NEQ GT LT GE LE
+%left PLUS MINUS
+%left TIMES DIVIDE
+%left UMINUS
+
+
 %%
 
-program:	exp
+program
+    : exp
 
-exp:   ID
+decs
+    : dec
+    | decs dec
+
+dec
+    : tydec
+    | vardec
+    | fundec
+
+tydec
+    : TYPE ID EQ ty
+
+ty
+    : ID
+    | LBRACE tyfields RBRACE
+    | ARRAY OF ID
+
+tyfields
+    : 
+    | ID COLON ID
+    | tyfields COMMA ID COLON ID
+
+vardec
+    : VAR ID ASSIGN exp
+    | VAR ID COLON ID ASSIGN exp
+
+fundec
+    : FUNCTION ID LPAREN tyfields RPAREN EQ exp
+    | FUNCTION ID LPAREN tyfields RPAREN COLON ID EQ exp
+
+exp
+    : lvalue
+    | NIL
+    | INT
+    | MINUS exp    %prec UMINUS
+    | STRING
+    | LPAREN expseq RPAREN
+    | functioncall
+    | arithmatic
+    | comparison
+    | exp AND exp
+    | exp OR exp
+    | recordcreation
+    | arraycreation
+    | lvalue ASSIGN exp
+    | IF exp THEN exp ELSE exp
+    | IF exp THEN exp
+    | WHILE exp DO exp
+    | FOR ID ASSIGN exp TO exp DO exp
+    | BREAK
+    | LET decs IN expseq END
+
+lvalue
+    : ID
+    | lvalue DOT ID
+    | lvalue LBRACK exp RBRACK
+    | ID LBRACK exp RBRACK
+
+expseq
+    : 
+    | exp
+    | expseq SEMICOLON exp
+
+functioncall
+    : ID LPAREN explist RPAREN
+
+explist
+    : 
+    | exp
+    | explist COMMA exp
+
+arithmatic
+    : exp PLUS exp
+    | exp MINUS exp
+    | exp TIMES exp
+    | exp DIVIDE exp
+
+comparison
+    : exp EQ exp
+    | exp NEQ exp
+    | exp LT exp
+    | exp LE exp
+    | exp GT exp
+    | exp GE exp
+
+recordcreation
+    : ID LBRACE fieldassignmentlist RBRACE
+
+fieldassignmentlist
+    : 
+    | ID EQ exp
+    | fieldassignmentlist COMMA ID EQ exp
+
+arraycreation
+    : ID LBRACK exp RBRACK OF exp
 
 
 
-	
+
+
+
+  
