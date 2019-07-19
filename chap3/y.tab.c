@@ -206,12 +206,11 @@ void yyerror(char *s)
 typedef union YYSTYPE
 #line 23 "tiger.grm"
 {
-  int pos;
   int ival;
   string sval;
   }
 /* Line 193 of yacc.c.  */
-#line 215 "y.tab.c"
+#line 214 "y.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -224,7 +223,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 228 "y.tab.c"
+#line 227 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -540,13 +539,13 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    59,    59,    62,    63,    66,    67,    68,    71,    74,
-      75,    76,    78,    80,    81,    84,    85,    88,    89,    92,
-      93,    94,    95,    96,    97,    98,    99,   100,   101,   102,
-     103,   104,   105,   106,   107,   108,   109,   110,   111,   114,
-     115,   116,   117,   119,   121,   122,   125,   127,   129,   130,
-     133,   134,   135,   136,   139,   140,   141,   142,   143,   144,
-     147,   149,   151,   152,   155
+       0,    58,    58,    61,    62,    65,    66,    67,    70,    73,
+      74,    75,    77,    79,    80,    83,    84,    87,    88,    91,
+      92,    93,    94,    95,    96,    97,    98,    99,   100,   101,
+     102,   103,   104,   105,   106,   107,   108,   109,   110,   113,
+     114,   115,   116,   118,   120,   121,   124,   126,   128,   129,
+     132,   133,   134,   135,   138,   139,   140,   141,   142,   143,
+     146,   148,   150,   151,   154
 };
 #endif
 
@@ -1566,7 +1565,7 @@ yyreduce:
     {
       
 /* Line 1267 of yacc.c.  */
-#line 1570 "y.tab.c"
+#line 1569 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);

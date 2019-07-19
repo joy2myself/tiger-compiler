@@ -21,7 +21,6 @@ void yyerror(char *s)
 
 
 %union {
-  int pos;
   int ival;
   string sval;
   }
