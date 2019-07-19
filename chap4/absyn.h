@@ -5,6 +5,8 @@
  * Linked list types end with "..list"
  */
 
+#include "symbol.h"
+
 /* Type Definitions */
 
 typedef int A_pos;
